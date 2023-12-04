@@ -5,14 +5,22 @@
     const [gameOver , setGameOver] = useState(false);
     const [didWin , setDidWin] = useState(true) 
     const [count , setCount] = useState(0);
-    
-    // let boxes = document.querySelectorAll(".box");
+    const [boxes , setBoxes] = useState([]);
     const [dataVal , setDataVal]= useState(Array(9).fill(null));
-    const boxes = document.querySelectorAll(".box");
+    useEffect(()=>{
+      findWinner();
+      const updatedBoxes = document.querySelectorAll(".box");
+    setBoxes(Array.from(updatedBoxes));
+     },[dataVal])
     const handleClick = (indi) =>{
       if(!gameOver && dataVal[indi] === null){
         let copyData = [...dataVal];
         copyData[indi] = player;
+        if(player === 'X'){
+          boxes[indi].classList.add("X-content")
+        }
+        else if(player === 'O')
+        boxes[indi].classList.add("O-content")
         setDataVal(copyData);
         setPlayer(prev => prev === 'X' ? 'O' : 'X');
         setCount(prev =>prev+1);
@@ -57,26 +65,26 @@
     setDidWin(true);
     boxes.forEach((box , index)=>{
       box.classList.remove("win");
+      box.classList.remove('O-content');
+      box.classList.remove('X-content')
     })
   }
-    useEffect(()=>{
-     findWinner();
-    },[dataVal])
+   
 
     return (
+      <div>
       <div className=" bg-[url('https://e0.pxfuel.com/wallpapers/358/40/desktop-wallpaper-dark-background-dark-gaming.jpg')] min-h-screen bg-cover bg-center flex flex-col w-screen items-center justify-evenly
-
       ">
       <div className="w-full flex justify-center ">
-        <h3 className=" text-white text-center mt-4 px-8 py-[6px] rounded-xl bg-[#ffffe126] inline-block ">{
+        <h3 className=" text-white text-center mt-4 px-8 py-3 rounded-xl  bg-[#ffffe126] inline-block ">{
         gameOver ? (
-          didWin ? `Winner Player  ${player}` : "Game Tied"
+          didWin ? `Winner Player  ${player} 🥳` : "Game Tied"
         ) : (
           `Current Player  ${player}`
         )}</h3>
       </div>
       <div className=" w-[90%] max-w-[20rem] bg-[#ffffe126] grid grid-cols-3 place-items-center aspect-square rounded-2xl border-2 border-[rgba(255,255,255,0.25)] p-8">
-        <div className="text-white text-4xl  w-[100%] aspect-square cursor-pointer h-[100%] flex justify-center items-center border-r-2 border-b-2  box "
+        <div className="  w-[100%] aspect-square cursor-pointer h-[100%] flex justify-center items-center border-r-2 border-b-2  box "
         placeholder={`${player}`}
         onClick={()=>handleClick(0)}>{dataVal[0]}</div>
         <div className="text-white text-4xl h-[100%]  w-[100%] aspect-square cursor-pointer flex justify-center items-center border-r-2 border-b-2 box "  onClick={()=>handleClick(1)}>{dataVal[1]}</div>
@@ -90,11 +98,10 @@
       </div>
       
       <div>
-             (<button  className={`bg-[#ffffe126] px-4 text-white py-2 rounded-lg  ${gameOver ? " opacity-100 disabled:false someExtra" : "opacity-0 disabled:true "}`}onClick={StartNewGame}>New Game</button>)
-            {/* <button className={`bg-[#ffffe126] px-4 text-white py-2 rounded-lg ${gameOver ? " opacity-100 disabled:false" : "opacity-0 disabled:true"}`}></button> */}
+             (<button  className={`bg-[#ffffe126] px-10 text-white py-4 rounded-lg  ${gameOver ? "animate opacity-100 disabled:false someExtra" : "opacity-0 disabled:true "}`}onClick={StartNewGame}>New Game</button>)
       </div>
       </div>
-
+      </div>
     );
   }
 
