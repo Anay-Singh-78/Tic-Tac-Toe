@@ -7,14 +7,63 @@
     padding: 0;
     box-sizing: border-box;
 }
-.win{
-    background-color: green;
-}
+
 .someExtra{
     transition: all 400ms;
 }
 .someExtra:hover{
 transform: scale(120%);
-    
+}
+.back{
+    backdrop-filter: blur(1rem);
+    position: absolute;
+    left: 37%;
+    top: 32%;
+    width: 40rem;
+    height: 30rem;
+}
 
+@keyframes slide {
+    0%{
+        background-position: left ;
+    }
+    100%{
+        background-position: right;
+    }
+}
+.show-win{
+    z-index: 10;
+    width: 25rem;
+    height: 20rem;
+    align-items: center;
+    position: absolute;
+
+    backdrop-filter: blur(10px);
+
+    background: royalblue;
+    animation-name: show_it;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: 1;
+}
+.X-content{
+   color: cyan;
+   font-size:3.5rem;
+   font-weight: 500;
+   text-shadow: 0 0 10px ,
+                0 0 20px ,
+                0 0 40px ,
+                0 0 80px ,
+                0 0 120px ,
+                0 0 160px 
+}
+.O-content{
+    color: red;
+   font-weight: 500;
+    font-size: 4rem;
+    text-shadow:  0 0 10px ,
+    0 0 20px ,
+    0 0 80px ,
+    0 0 160px ;
 }
